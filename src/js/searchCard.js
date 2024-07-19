@@ -16,8 +16,20 @@
     </p>
     </div>
     
-    <button type="button" class="load-more" disanbled="disabled">Load more</button>
+    {/* <button type="button" class="load-more" disanbled="disabled">Load more</button> */}
 </div>
 
 
 
+// fetch.getJSON(URL, function (data) {
+//     if (parseInt(data.totalHits) > 0)
+//     fetch.each(data.hits, function(i, hit){ console.log(hit.pageURL); });
+// else
+//     console.log('No hits');
+// });
+// $.getJSON(URL, function(data){
+// if (parseInt(data.totalHits) > 0)
+//     $.each(data.hits, function(i, hit){ console.log(hit.pageURL); });
+// else
+//     console.log('No hits');
+// });
