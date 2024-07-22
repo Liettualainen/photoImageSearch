@@ -10,24 +10,26 @@ searchImage.addEventListener("input", (e) => {
     searchResult = e.target.value;
     return searchResult;
 });
-
 submitbutton.addEventListener("click", (e) => { 
     e.preventDefault();
     // console.log("button", searchResult);
     fetchImages(searchResult);
-}
-
-);
+});
 
 async function fetchImages(searchResult)
 {
    try {
-       const imageList = await fetchSearchPhotos(searchResult);
+     const imageList = await fetchSearchPhotos(searchResult);
+     console.log("totalhits",imageList.totalHits)
+      Notiflix.Notify.success(
+          ` Hooray! We found ${imageList.totalHits} images.`,
+         {
+            timeout: 3000, useIcon: true, width: '250px',
+         },)
        renderImages(imageList);
-       
    } catch (error) {
     Notiflix.Notify.failure(`❌ Oops! Something went wrong!</p>Try reloading the page!`, {
-      timeout: 2000, useIcon: false, width: '240px', position: 'left-top', distance: '10px',
+      timeout: 2000, useIcon: false, width: '250px', position: 'left-top', distance: '10px',
     }, )
      console.log(error);
     }
@@ -35,31 +37,63 @@ async function fetchImages(searchResult)
 };
 
 function renderImages(imageList) {
-  console.log("imagelist", imageList.hits);  
-  const imageRender = imageList.hits.map(({ previewURL, tags, likes, views, comments, downloads }) => {
-    
-    return ` <div class="photo-card">
-  <img src=${previewURL} alt=${tags} loading="lazy" />
+    console.log("totalhits",imageList)
+  const imageRender = imageList.hits.map(({ largeImageURL, previewURL, tags, likes, views, comments, downloads }) => {
+    return `<div class="photo-card">
+        <a class="gallery__link"  href=${largeImageURL}>
+            <img
+            class="photo-img"
+            src=${previewURL}
+            alt=${tags}
+            loading="lazy"
+             />
+        </a>
   <div class="info">
     <p class="info-item">
-      <b>Likes: ${likes}</b>
+      <b>Likes:</b>
+      <b class="info-rearch">${likes}</b>
     </p>
     <p class="info-item">
-      <b>Views: ${views}</b>
+      <b>Views:</b>
+      <b  class="info-rearch">${views}</b>
     </p>
     <p class="info-item">
-      <b>Comments: ${comments}</b>
+      <b>Comments:</b>
+       <b  class="info-rearch"> ${comments}</b>
     </p>
     <p class="info-item">
-      <b>Downloads: ${downloads}</b>
+      <b>Downloads: </b>
+       <b  class="info-rearch">${downloads}</b>
     </p>
     </div>
 </div>`;
   })
-  
-     gallery.innerHTML = imageRender;
-  return gallery;
+  gallery.innerHTML = imageRender.join(""); 
+
+    const lightbox = new SimpleLightbox(`.gallery a`,
+    {
+      overlayOpacity: 0.9,heightRatio: 0.9, widthRatio: 0.9,
+      captionType: "attr,",captionsData: "alt", captionPosition: 'bottom', captionDelay: 250,
+     captionHTML:	true,
+      scaleImageToRatio: true, scrollZoom: true, showCounter: false       
+    });
+
 }
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
 
 
 //   fetchPostsInput.innerHTML = catList;
@@ -76,3 +110,4 @@ function renderImages(imageList) {
 //     showOptionTooltips: false,
 //   }})
 //   }
+// ✅

@@ -6,7 +6,7 @@ const imageType = "photo";
 const photoOrientation = "horizontal";
 const safeSearch = true;
 const StartingPage = "1";
-const perPage = "10";
+const perPage = "200";
 
 const fetchSearchPhotos = async (searchImage) => {
   try {

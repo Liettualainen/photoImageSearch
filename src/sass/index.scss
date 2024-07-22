@@ -1,2 +1,61 @@
 @import './common';
 @import './example';
+body {
+         background-color: rgb(247, 245, 232);
+}
+.search-form{
+    margin-left: 20px;
+    margin-top: 20px; 
+        
+   
+}
+.gallery {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.submit {
+    margin-left: 20px;
+        margin-top: 20px;
+        background-color: rgb(242, 222, 107);
+        border: 2 solid;
+        border-radius: 5;
+        border-color: rgb(59, 15, 217);
+        color: rgb(21, 50, 212);
+}
+.input {
+margin-left: 20px;
+border: 2 solid;
+border-radius: 5;
+font-size: 15;
+}
+.photo-card {
+  margin: 20px;
+  
+}
+.info {
+    display: flex;
+justify-content:space-between;
+        font-size: 8;
+}
+.info-item {
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+}
+.info-rearch{
+    font-size: 8;
+    font-weight: 500;
+}
+
+.photo-img{
+    width:240px;
+    border: 2px solid #000;
+    border-radius: 10px;
+}
+
+
+.sl-wrapper .sl-image .sl-caption {
+font-size: 30;
+width: 200;
+}
