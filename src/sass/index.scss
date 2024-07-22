@@ -3,11 +3,13 @@
 body {
          background-color: rgb(247, 245, 232);
 }
-.search-form{
-    margin-left: 20px;
-    margin-top: 20px; 
-        
-   
+
+.search-block {
+text-align: center;
+background-color: rgb(186, 193, 236);
+
+padding-bottom: 20px;
+
 }
 .gallery {
     margin-top: 20px;
@@ -15,16 +17,17 @@ body {
     flex-wrap: wrap;
 }
 .submit {
-    margin-left: 20px;
+    margin-left: 10px;
         margin-top: 20px;
         background-color: rgb(242, 222, 107);
         border: 2 solid;
         border-radius: 5;
         border-color: rgb(59, 15, 217);
         color: rgb(21, 50, 212);
+        font-size: 15;
+        cursor: pointer;
 }
 .input {
-margin-left: 20px;
 border: 2 solid;
 border-radius: 5;
 font-size: 15;
@@ -58,4 +61,17 @@ justify-content:space-between;
 .sl-wrapper .sl-image .sl-caption {
 font-size: 30;
 width: 200;
+}
+
+.load-more {
+    display: flex;
+    margin: auto;
+    margin-bottom: 40px;
+background-color: rgb(242, 222, 107);
+    border: 2 solid;
+    border-radius: 5;
+    border-color: rgb(59, 15, 217);
+    color: rgb(21, 50, 212);
+    font-size: 15;
+    cursor: pointer;
 }

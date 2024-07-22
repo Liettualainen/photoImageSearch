@@ -4,6 +4,7 @@ const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery')
 const searchImage = form.elements.searchQuery;
 const submitbutton = form.querySelector('[type="submit"]');
+const loadMoreButton =  document.querySelector('.load-more')
 let searchResult ="";
 
 searchImage.addEventListener("input", (e) => {
@@ -68,6 +69,9 @@ function renderImages(imageList) {
     </div>
 </div>`;
   })
+  loadMoreButton.style = "display: yes";
+
+  
   gallery.innerHTML = imageRender.join(""); 
 
     const lightbox = new SimpleLightbox(`.gallery a`,
