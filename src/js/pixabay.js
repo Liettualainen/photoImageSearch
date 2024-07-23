@@ -5,7 +5,8 @@ const API_KEY = '30904237-89ef4380cd88db989fbe73792';
 const imageType = "photo";
 const photoOrientation = "horizontal";
 const safeSearch = true;
-const perPage = "6";
+const perPage = 40;
+let StartingPage = 1;
 
 const fetchSearchPhotos = async (searchImage, StartingPage) => {
   try {
@@ -19,4 +20,4 @@ const fetchSearchPhotos = async (searchImage, StartingPage) => {
 }
 }
 
-export { fetchSearchPhotos }
+export { fetchSearchPhotos,  perPage, StartingPage}

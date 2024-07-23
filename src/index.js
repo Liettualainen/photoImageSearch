@@ -1,11 +1,29 @@
 import Notiflix from 'notiflix';
-import { fetchSearchPhotos } from './js/pixabay'
+import { fetchSearchPhotos, StartingPage, perPage } from './js/pixabay'
 const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery')
 const searchImage = form.elements.searchQuery;
 const submitbutton = form.querySelector('[type="submit"]');
-const loadMoreButton =  document.querySelector('.load-more')
-let searchResult ="";
+const loadMoreButton = document.querySelector('.load-more')
+
+let searchResult = "";
+let totalImageAmount = "";
+let Page = StartingPage;
+
+loadMoreButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  Page += 1;
+  let balance = Page * perPage;
+  if (balance < totalImageAmount) {
+    fetchImages(searchResult, Page)
+  }
+  else {
+    Notiflix.Notify.failure
+    (`We're sorry, but you've reached the end of search results.`, {
+    timeout: 3000, useIcon: true, width: '250px',},)
+    loadMoreButton.style = "display: none";
+  }
+})
 
 searchImage.addEventListener("input", (e) => {
   searchResult = e.target.value;
@@ -29,13 +47,11 @@ submitbutton.addEventListener("click", (e) => {
 
 });
 
-async function fetchImages(searchResult)
+async function fetchImages(searchResult, StartingPage)
 {
   try {
-      
-      const StartingPage = "1";
-     const imageList = await fetchSearchPhotos(searchResult, StartingPage);
-     console.log("totalhits_amount", imageList.totalHits)
+    const imageList = await fetchSearchPhotos(searchResult, StartingPage);
+    totalImageAmount = imageList.totalHits;
     if (imageList.totalHits > 0) {
           Notiflix.Notify.success(
           ` Hooray! We found ${imageList.totalHits} images.`,
@@ -95,8 +111,6 @@ function renderImages(imageList) {
 </div>`;
   })
   loadMoreButton.style = "display: yes";
-
-  
   gallery.innerHTML = imageRender.join(""); 
 
     const lightbox = new SimpleLightbox(`.gallery a`,
