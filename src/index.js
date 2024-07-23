@@ -13,6 +13,7 @@ let Page = StartingPage;
 loadMoreButton.addEventListener("click", (e) => {
   e.preventDefault();
   Page += 1;
+    console.log(Page);
   let balance = Page * perPage;
   if (balance < totalImageAmount) {
     fetchImages(searchResult, Page)
@@ -22,9 +23,9 @@ loadMoreButton.addEventListener("click", (e) => {
     (`We're sorry, but you've reached the end of search results.`, {
     timeout: 3000, useIcon: true, width: '250px',},)
     loadMoreButton.style = "display: none";
+    return Page = 0;
   }
 })
-
 searchImage.addEventListener("input", (e) => {
   searchResult = e.target.value;
   gallery.innerHTML = "";
@@ -42,9 +43,6 @@ submitbutton.addEventListener("click", (e) => {
     gallery.innerHTML = "";
       loadMoreButton.style = "display: none";
   }
-
-
-
 });
 
 async function fetchImages(searchResult, StartingPage)
@@ -52,12 +50,16 @@ async function fetchImages(searchResult, StartingPage)
   try {
     const imageList = await fetchSearchPhotos(searchResult, StartingPage);
     totalImageAmount = imageList.totalHits;
-    if (imageList.totalHits > 0) {
+    if (imageList.totalHits > 0 && Page === 1) {
           Notiflix.Notify.success(
           ` Hooray! We found ${imageList.totalHits} images.`,
          {
             timeout: 3000, useIcon: true, width: '250px',
          },)
+      renderImages(imageList);
+      searchResult = "";
+    }
+       else if (imageList.totalHits > 0) {
       renderImages(imageList);
       searchResult = "";
     }
@@ -111,16 +113,16 @@ function renderImages(imageList) {
 </div>`;
   })
   loadMoreButton.style = "display: yes";
-  gallery.innerHTML = imageRender.join(""); 
-
+  gallery.innerHTML += imageRender.join(""); 
+ 
     const lightbox = new SimpleLightbox(`.gallery a`,
     {
       overlayOpacity: 0.9,heightRatio: 0.9, widthRatio: 0.9,
       captionType: "attr,",captionsData: "alt", captionPosition: 'bottom', captionDelay: 250,
      captionHTML:	true,
       scaleImageToRatio: true, scrollZoom: true, showCounter: false       
-    });
-
+      });
+   lightbox.refresh();
 }
 
 

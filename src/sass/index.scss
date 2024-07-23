@@ -5,14 +5,17 @@ body {
 }
 
 .search-block {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    margin-top: -70px;
 text-align: center;
 background-color: rgb(186, 193, 236);
-
 padding-bottom: 20px;
 
 }
 .gallery {
-    margin-top: 20px;
+    margin-top: 70px;
     display: flex;
     flex-wrap: wrap;
 }
