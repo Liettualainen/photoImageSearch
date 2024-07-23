@@ -8,26 +8,51 @@ const loadMoreButton =  document.querySelector('.load-more')
 let searchResult ="";
 
 searchImage.addEventListener("input", (e) => {
-    searchResult = e.target.value;
+  searchResult = e.target.value;
+  gallery.innerHTML = "";
+   loadMoreButton.style = "display: none";
     return searchResult;
 });
 submitbutton.addEventListener("click", (e) => { 
-    e.preventDefault();
-    // console.log("button", searchResult);
+  e.preventDefault();
+  if (searchResult !== "") {
+      // console.log("button", searchResult);
     fetchImages(searchResult);
+    searchResult = "";
+  }
+  else if (searchResult === "") {
+    gallery.innerHTML = "";
+      loadMoreButton.style = "display: none";
+  }
+
+
+
 });
 
 async function fetchImages(searchResult)
 {
-   try {
-     const imageList = await fetchSearchPhotos(searchResult);
-     console.log("totalhits",imageList.totalHits)
-      Notiflix.Notify.success(
+  try {
+      
+      const StartingPage = "1";
+     const imageList = await fetchSearchPhotos(searchResult, StartingPage);
+     console.log("totalhits_amount", imageList.totalHits)
+    if (imageList.totalHits > 0) {
+          Notiflix.Notify.success(
           ` Hooray! We found ${imageList.totalHits} images.`,
          {
             timeout: 3000, useIcon: true, width: '250px',
          },)
-       renderImages(imageList);
+      renderImages(imageList);
+      searchResult = "";
+    }
+        else if  (imageList.totalHits === 0) {
+          Notiflix.Notify.failure(
+          `Sorry, there are no images matching your search query. Please try again.`,
+         {
+            timeout: 3000, useIcon: true, width: '250px',
+         },)
+     }
+   
    } catch (error) {
     Notiflix.Notify.failure(`❌ Oops! Something went wrong!</p>Try reloading the page!`, {
       timeout: 2000, useIcon: false, width: '250px', position: 'left-top', distance: '10px',
